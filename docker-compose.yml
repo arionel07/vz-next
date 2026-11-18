@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: vizaje-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: vizaje_nica
+      MYSQL_USER: vizaje
+      MYSQL_PASSWORD: change_me_password
+      MYSQL_ROOT_PASSWORD: change_me_root_password
+    ports:
+      - '3307:3306'
+    volumes:
+      - vizaje_mysql_data:/var/lib/mysql
+
+volumes:
+  vizaje_mysql_data:

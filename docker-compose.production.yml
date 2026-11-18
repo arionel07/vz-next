@@ -1,0 +1,54 @@
+# Production compose for the Next.js storefront only. MySQL is assumed to
+# already run on the VPS (shared with the legacy CodeIgniter site) and is
+# reached via DATABASE_URL in .env.production — this file does not start
+# its own database.
+#
+# Usage on the VPS:
+#   docker compose -f docker-compose.production.yml --env-file .env.production up -d --build
+#
+# TLS and the public hostname are handled by Nginx on the host
+# (see ../../docker/nginx/vizaje-nica.conf), not by this container.
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vizaje-next
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    environment:
+      # Images/uploads shared with the legacy site. The app resolves this
+      # path as process.cwd()/../../public when LEGACY_ASSET_ROOT is unset,
+      # which for this image's WORKDIR (/app) is exactly /public — mount the
+      # host's shared images directory there, not into /app/public.
+      LEGACY_ASSET_ROOT: /public
+    ports:
+      # Bind to localhost only: Nginx on the host terminates TLS and
+      # proxies to this port. Do not expose 3000 publicly.
+      - '127.0.0.1:3000:3000'
+    volumes:
+      - /srv/vizaje-nica/public:/public
+    # DATABASE_URL in .env.production must NOT point at 127.0.0.1/localhost:
+    # inside this container that resolves to the container itself, not the
+    # VPS host running MySQL. `host.docker.internal` (mapped below via
+    # host-gateway, Linux Docker 20.10+/Compose v2) reaches the host's
+    # network namespace, where the shared MySQL (used by legacy too) is
+    # listening. See deploy/README.md §3.1 for the exact DATABASE_URL value
+    # and the alternative (MySQL running as its own container/network).
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    logging:
+      driver: json-file
+      options:
+        # Rotation: keep at most ~30MB of logs per container instead of an
+        # unbounded file. Ship to a log aggregator separately if needed.
+        max-size: '10m'
+        max-file: '3'
+    networks:
+      - vizaje_ingress
+
+networks:
+  vizaje_ingress:
+    driver: bridge

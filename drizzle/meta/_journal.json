@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1793264942832,
+      "tag": "0000_melted_sinister_six",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1793836800000,
+      "tag": "0003_search_query_stats",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1793907896000,
+      "tag": "0005_admin_auth_tables",
+      "breakpoints": true
+    }
+  ]
+}

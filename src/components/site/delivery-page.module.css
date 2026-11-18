@@ -1,0 +1,148 @@
+.page {
+  padding-bottom: 96px;
+}
+
+.breadcrumbs {
+  align-items: center;
+  color: #707070;
+  display: flex;
+  font-size: 12px;
+  gap: 10px;
+  margin: 34px auto 0;
+  max-width: 1240px;
+}
+
+.breadcrumbs a {
+  border-bottom: 1px solid var(--cream);
+}
+
+.hero {
+  border-bottom: 1px solid var(--line);
+  margin: 42px auto 0;
+  max-width: 1240px;
+  padding-bottom: 58px;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 8vw, 108px);
+  font-weight: 500;
+  letter-spacing: -.07em;
+  line-height: .91;
+  margin: 16px 0 28px;
+  max-width: 850px;
+}
+
+.intro {
+  color: #707070;
+  font-size: 18px;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 650px;
+}
+
+.note {
+  border-left: 2px solid var(--cream);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 32px 0 0;
+  max-width: 560px;
+  padding-left: 16px;
+}
+
+.sections {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 58px auto 0;
+  max-width: 1240px;
+}
+
+.section {
+  border-top: 1px solid var(--line);
+  min-height: 280px;
+  padding: 28px 28px 36px 0;
+}
+
+.section:nth-child(even) {
+  border-left: 1px solid var(--line);
+  padding-left: 28px;
+}
+
+.section h2 {
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 500;
+  letter-spacing: -.045em;
+  line-height: 1;
+  margin: 0 0 34px;
+}
+
+.copy {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.copy article {
+  color: #707070;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.copy article :global(p) {
+  margin: 0 0 12px;
+}
+
+.copy article :global(p:last-child) {
+  margin-bottom: 0;
+}
+
+.copy article :global(ul),
+.copy article :global(ol) {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.copy article :global(a) {
+  border-bottom: 1px solid var(--cream);
+  color: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding-bottom: 64px;
+  }
+
+  .breadcrumbs {
+    margin-top: 24px;
+  }
+
+  .hero {
+    margin-top: 32px;
+    padding-bottom: 40px;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 17vw, 80px);
+  }
+
+  .intro {
+    font-size: 16px;
+  }
+
+  .sections {
+    display: block;
+    margin-top: 40px;
+  }
+
+  .section,
+  .section:nth-child(even) {
+    border-left: 0;
+    min-height: 0;
+    padding: 26px 0 30px;
+  }
+
+  .section h2 {
+    margin-bottom: 24px;
+  }
+}
